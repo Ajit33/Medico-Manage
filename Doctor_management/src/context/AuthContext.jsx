@@ -1,26 +1,34 @@
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
+
+export const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('isLogin') === 'true');
 
 
- export const AuthContext=createContext();
+    const [click, setClick] = useState(false);
+    const [doctorId, setDoctorId] = useState('');
 
-
- export const AuthProvider=({children})=>{
-    const [isLogin,setIsLogin]=useState(false)
-    const [click,setClick]=useState(false)
-    const [doctorId,setDoctorId]=useState('');
     useEffect(() => {
         const loggedIn = localStorage.getItem('isLogin');
+        if (loggedIn === 'true') {
+            setIsLogin(true);
+        }
         const doctor = localStorage.getItem('doctorId');
-        if (loggedIn) {
-          setIsLogin(true);
-        }
         if (doctor) {
-          setDoctorId(doctor);
+            setDoctorId(doctor);
         }
-      }, []);
-    return(
-        <AuthContext.Provider value={{isLogin,setIsLogin,click,setClick,doctorId,setDoctorId}}>
+    }, []);
+
+    const logout = () => {
+        setIsLogin(false);
+        localStorage.removeItem('isLogin');
+        localStorage.removeItem('doctorId');
+    };
+
+    return (
+        <AuthContext.Provider value={{ isLogin, setIsLogin, click, setClick, doctorId, setDoctorId, logout }}>
             {children}
         </AuthContext.Provider>
-    )
- }
+    );
+};

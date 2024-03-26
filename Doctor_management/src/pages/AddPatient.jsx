@@ -101,57 +101,77 @@ const AddPatient = () => {
         </form>
         <div className="p-4">
           <h2 className="text-lg font-bold">Patients</h2>
-          <ul>
-            {patients.map(patient => (
-              <li key={patient.id}>
-                {editPatientId === patient.id ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={editFormData.name}
-                      onChange={handleChange}
-                      name="name"
-                      placeholder="Name"
-                      className="w-full mb-2 px-3 py-2 border border-gray-300 rounded-md"
-                    />
-                    <input
-                      type="number"
-                      value={editFormData.age}
-                      onChange={handleChange}
-                      name="age"
-                      placeholder="Age"
-                      className="w-full mb-2 px-3 py-2 border border-gray-300 rounded-md"
-                    />
-                    <textarea
-                      value={editFormData.medicalHistory}
-                      onChange={handleChange}
-                      name="medicalHistory"
-                      placeholder="Medical History"
-                      className="w-full mb-2 px-3 py-2 border border-gray-300 rounded-md"
-                    ></textarea>
-                    <button
-                      onClick={() => handleSave(patient.id)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded-md"
-                    >
-                      Save
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <p>Name: {patient.name}</p>
-                    <p>Age: {patient.age}</p>
-                    <p>Medical History: {patient.medicalHistory}</p>
-                    <button
-                      onClick={() => handleEdit(patient.id)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded-md"
-                    >
-                      Edit
-                    </button>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                <th className="border border-gray-300 px-4 py-2">Name</th>
+                <th className="border border-gray-300 px-4 py-2">Age</th>
+                <th className="border border-gray-300 px-4 py-2">Medical History</th>
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patients.map(patient => (
+                <tr key={patient.id}>
+                  {editPatientId === patient.id ? (
+                    <>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <input
+                          type="text"
+                          value={editFormData.name}
+                          onChange={handleChange}
+                          name="name"
+                          placeholder="Name"
+                          className="w-full border border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <input
+                          type="number"
+                          value={editFormData.age}
+                          onChange={handleChange}
+                          name="age"
+                          placeholder="Age"
+                          className="w-full border border-gray-300 rounded-md"
+                        />
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <textarea
+                          value={editFormData.medicalHistory}
+                          onChange={handleChange}
+                          name="medicalHistory"
+                          placeholder="Medical History"
+                          className="w-full border border-gray-300 rounded-md"
+                        ></textarea>
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <button
+                          onClick={() => handleSave(patient.id)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2"
+                        >
+                          Save
+                        </button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="border border-gray-300 px-4 py-2">{patient.name}</td>
+                      <td className="border border-gray-300 px-4 py-2">{patient.age}</td>
+                      <td className="border border-gray-300 px-4 py-2">{patient.medicalHistory}</td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        <button
+                          onClick={() => handleEdit(patient.id)}
+                          className="bg-blue-500 text-white px-2 py-1 rounded-md mr-2"
+                        >
+                          Edit
+                        </button>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

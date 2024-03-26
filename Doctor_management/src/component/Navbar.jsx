@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { isLogin, setIsLogin, setDoctorId, click, setClick } = useContext(AuthContext);
- 
+  console.log(isLogin)
 
   const handleLogout = () => {
     setIsLogin(false);
     setDoctorId(null);
+    localStorage.removeItem('isLogin');
+    localStorage.removeItem('doctorId');
   };
 
   return (
